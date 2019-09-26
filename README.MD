@@ -18,7 +18,7 @@ ART-BPMS-MAILING is a java module providing possibility to send emails using SMT
     mvn install
     ```
 2. Add the following dependency to your project's pom:
-    ```
+    ```xml
     <dependency>
         <groupId>com.artezio.bpm.camunda</groupId>
         <artifactId>camunda-mailing</artifactId>
