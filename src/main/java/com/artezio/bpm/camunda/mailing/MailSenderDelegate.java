@@ -28,7 +28,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static javax.mail.Message.RecipientType.*;
 
 @Named
-public class MailSender implements JavaDelegate {
+public class MailSenderDelegate implements JavaDelegate {
 
     private final static String SMTP_HOST = System.getProperty("SMTP_HOST", "localhost");
     private final static String SMTP_PORT = System.getProperty("SMTP_PORT", "25000");

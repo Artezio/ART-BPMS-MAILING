@@ -28,7 +28,7 @@ ART-BPMS-MAILING is a java module providing possibility to send emails using SMT
 
 ### Setup `java.mail.Session`
 
-`com.artezio.bpm.camunda.mailing.MailSender` service looks for the session with JNDI `java:global/camunda-bpm-platform/mail/com.artezio.bpm.camunda`
+`com.artezio.bpm.camunda.mailing.MailSenderDelegate` service looks for the session with JNDI `java:global/camunda-bpm-platform/mail/com.artezio.bpm.camunda`
 so use this name in your session's settings to make it visible to the service.
 For exact `java.mail.Session` setup steps (as a container resource or a standalone object) see corresponding documentation.   
 
@@ -43,18 +43,18 @@ and `{template_name}_body.ftl` (see [FreeMarker guide] for information about cre
 provide the names of the images in `mailImageNames` environment variable (see [Process variables](#process-variables) section). 
 2. Add created templates to a process deployment
 3. On a process's diagram put either `Service Task` or `Send Task` component with `Delegate Expression` implementation
-4. Select the put component and write `${mailSender}` into field `Delegate Expression`<br/>
+4. Select the put component and write `${mailSenderDelegate}` into field `Delegate Expression`<br/>
 ![](./doc/mail-sender-usage-example.png)
 
 ## Security
 ### Authentication
 
-`com.artezio.bpm.camunda.mailing.MailSender` uses simple SMTP authentication. By default the authentication is turned off.
+`com.artezio.bpm.camunda.mailing.MailSenderDelegate` uses simple SMTP authentication. By default the authentication is turned off.
 To force the service to do the authentication you have to specify `SMTP_PASSWORD` variable (see [Environment variables](#environment-variables) section).
 
 ### Secured connection
 
-`com.artezio.bpm.camunda.mailing.MailSender` allows to establish a TLS connection through STARTTLS extension to SMTP. By
+`com.artezio.bpm.camunda.mailing.MailSenderDelegate` allows to establish a TLS connection through STARTTLS extension to SMTP. By
 default it is disabled, to make it enabled set `STARTTLS` environment variable to `true` (see [Environment variables](#environment-variables) section).
 
 ## Process variables
