@@ -11,6 +11,13 @@
     <properties>
         <camunda.version>7.10.0</camunda.version>
     </properties>
+    
+    <distributionManagement>
+        <repository>
+            <id>art-mvn-repo</id>
+            <url>https://maven.pkg.github.com/Artezio/ART-MVN-REPO</url>
+        </repository>
+    </distributionManagement>
 
     <dependencies>
         <dependency>
