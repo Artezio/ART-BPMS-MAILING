@@ -11,18 +11,20 @@ ART-BPMS-MAILING is a java module providing possibility to send emails using SMT
 
 ## Getting Started
 
-1. In console run the code below to install ART-BPMS-MAILING module to your local maven repository
+1. Open your project's pom
+2. Add a reference to the artezio mvn repository:
+    ```xml
+    <repository>
+        <id>artezio</id>
+        <url>https://nexus.artezio.net/repository/maven-releases</url>
+    </repository>
     ```
-    git clone https://github.com/Artezio/ART-BPMS-MAILING.git
-    cd ART-BPMS-MAILING
-    mvn install
-    ```
-2. Add the following dependency to your project's pom:
+2. Add the dependency:
     ```xml
     <dependency>
         <groupId>com.artezio.bpm.camunda</groupId>
         <artifactId>camunda-mailing</artifactId>
-        <version>1.0</version>
+        <version>${camunda-mailing.version}</version>
     </dependency>
     ``` 
 
