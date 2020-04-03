@@ -1,7 +1,6 @@
 package com.artezio.bpm.camunda.mailing;
 
 import freemarker.cache.TemplateLoader;
-import org.apache.commons.io.IOUtils;
 import org.camunda.bpm.engine.RepositoryService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 
@@ -24,7 +23,7 @@ public class BpmDeploymentTemplateLoader implements TemplateLoader {
     @Override
     public Object findTemplateSource(String templateName) throws IOException {
         String deploymentId = getDeploymentId();
-        byte[] template = IOUtils.toByteArray(repositoryService.getResourceAsStream(deploymentId, templateName));
+        byte[] template = repositoryService.getResourceAsStream(deploymentId, templateName).readAllBytes();
         return TEMPLATE_CACHE.computeIfAbsent(deploymentId + "." + templateName, templateCacheKey -> template);
     }
 
