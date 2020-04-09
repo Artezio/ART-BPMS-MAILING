@@ -1,13 +1,11 @@
 package com.artezio.bpm.camunda.mailing;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.tika.Tika;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -30,34 +28,15 @@ import static javax.mail.Message.RecipientType.*;
 @Named
 public class MailSenderDelegate implements JavaDelegate {
 
-    private final static String SMTP_HOST = System.getProperty("SMTP_HOST", "localhost");
-    private final static String SMTP_PORT = System.getProperty("SMTP_PORT", "25000");
-    private final static String SMTP_USERNAME = System.getProperty("SMTP_USERNAME", "");
-    private final static String SMTP_PASSWORD = System.getProperty("SMTP_PASSWORD", "");
-    private static final String STARTTLS = System.getProperty("STARTTLS", "false");
-
     @Inject
     private MailTemplateManager mailTemplateManager;
     @Resource(mappedName = "java:global/camunda-bpm-platform/mail/com.artezio.bpm.camunda")
     private Session session;
     private Tika tika = new Tika();
 
-    @PostConstruct
-    public void initMailSession() {
-        if (!StringUtils.isEmpty(SMTP_PASSWORD)) {
-            session.getProperties().put("mail.smtp.auth", "true");
-            session.getProperties().put("mail.smtp.user", SMTP_USERNAME);
-        } else {
-            session.getProperties().put("mail.smtp.auth", "false");
-        }
-        session.getProperties().put("mail.smtp.host", SMTP_HOST);
-        session.getProperties().put("mail.smtp.port", SMTP_PORT);
-        session.getProperties().put("mail.smtp.starttls.enable", STARTTLS);
-    }
-
     public void execute(DelegateExecution execution) throws Exception {
         MimeMessage mimeMessage = createMimeMessage(execution);
-        Transport.send(mimeMessage, SMTP_USERNAME, SMTP_PASSWORD);
+        Transport.send(mimeMessage);
     }
 
     private MimeMessage createMimeMessage(DelegateExecution execution) throws MessagingException {
